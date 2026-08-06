@@ -11,202 +11,122 @@
   --bg:#070e1b;--surface:#0c1625;--surface2:#111e33;--surface3:#1a2d47;
   --border:#1b2e4a;--border2:#1e3554;
   --text:#dde8f8;--text2:#7a9cbf;--text3:#3a5575;
-  --accent:#3b82f6;--green:#10b981;--red:#f43f5e;--amber:#f59e0b;
+  --accent:#3b82f6;--green:#10b981;--red:#f43f5e;--amber:#f59e0b;--purple:#8b5cf6;
 }
-body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 a{color:inherit;text-decoration:none}
-
-/* NAV */
 .nav{background:rgba(7,14,27,.92);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;height:56px;gap:16px;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
-.nav-brand{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;color:var(--text)}
-.nav-brand img{width:28px;height:28px;filter:drop-shadow(0 0 6px rgba(56,217,169,.6))}
+.nav-brand{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px}
 .nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
 .user-badge{font-size:11px;color:var(--text2);padding:4px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:20px}
-.logout-btn{font-size:11px;font-weight:600;padding:6px 12px;border-radius:8px;cursor:pointer;background:rgba(244,63,94,.1);color:#f87171;border:1px solid rgba(244,63,94,.25);font-family:inherit;transition:.15s}
+.logout-btn{font-size:11px;font-weight:600;padding:6px 12px;border-radius:8px;cursor:pointer;background:rgba(244,63,94,.1);color:#f87171;border:1px solid rgba(244,63,94,.25);font-family:inherit}
 .logout-btn:hover{background:rgba(244,63,94,.2)}
-.dashboard-btn{font-size:11px;font-weight:600;padding:6px 12px;border-radius:8px;cursor:pointer;background:rgba(59,130,246,.12);color:#60a5fa;border:1px solid rgba(59,130,246,.25);font-family:inherit;transition:.15s}
-.dashboard-btn:hover{background:rgba(59,130,246,.2)}
-
-/* MAIN */
-.main{max-width:800px;margin:0 auto;padding:32px 20px}
-.page-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:4px}
+.main{max-width:840px;margin:0 auto;padding:32px 20px}
+.page-title{font-size:20px;font-weight:700;margin-bottom:4px}
 .page-sub{font-size:12px;color:var(--text2);margin-bottom:28px}
-
-/* TYPE TABS */
-.type-tabs{display:flex;gap:8px;margin-bottom:24px}
-.type-tab{flex:1;padding:14px 16px;border-radius:12px;cursor:pointer;border:2px solid var(--border2);background:var(--surface);text-align:center;transition:.18s;user-select:none}
-.type-tab h3{font-size:14px;font-weight:700;color:var(--text2);margin-bottom:4px}
-.type-tab p{font-size:11px;color:var(--text3)}
-.type-tab.active{border-color:var(--accent);background:rgba(59,130,246,.08)}
-.type-tab.active h3{color:var(--text)}
-.type-tab.active p{color:var(--text2)}
-
-/* CARD */
 .card{background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:24px;margin-bottom:20px}
-.card-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:8px}
-
-/* UPLOAD ZONE */
-.drop-zone{border:2px dashed var(--border2);border-radius:12px;padding:40px 20px;text-align:center;cursor:pointer;transition:.18s;position:relative}
+.card-title{font-size:13px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.drop-zone{border:2px dashed var(--border2);border-radius:12px;padding:44px 20px;text-align:center;cursor:pointer;transition:.18s;position:relative}
 .drop-zone:hover,.drop-zone.drag{border-color:var(--accent);background:rgba(59,130,246,.04)}
 .drop-zone input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
-.drop-icon{font-size:36px;margin-bottom:12px}
-.drop-text{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px}
+.drop-icon{font-size:40px;margin-bottom:12px}
+.drop-text{font-size:14px;font-weight:600;margin-bottom:4px}
 .drop-sub{font-size:11px;color:var(--text3)}
-
-/* FILE LOADED */
-.file-loaded{display:none;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:10px;padding:12px 16px;margin-top:12px;font-size:12px;color:var(--text);align-items:center;gap:10px}
+.file-loaded{display:none;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:10px;padding:12px 16px;margin-top:12px;font-size:12px;align-items:center;gap:10px}
 .file-loaded.show{display:flex}
-
-/* COLUMN MAPPER */
-.cmap-box{display:none}
-.cmap-box.show{display:block}
-.cmap-scroll{display:flex;flex-direction:column;gap:8px;max-height:360px;overflow-y:auto;padding-right:4px}
-.cmap-row{display:grid;grid-template-columns:200px 1fr;gap:10px;align-items:center;background:rgba(59,130,246,.04);border:1px solid rgba(59,130,246,.1);border-radius:9px;padding:9px 12px}
-.cmap-lbl{font-size:11px;font-weight:600;color:var(--text)}
-.cmap-lbl small{display:block;color:var(--text3);font-weight:400;font-size:9.5px;margin-top:1px}
-.cmap-sel{background:var(--surface2);border:1px solid var(--border);color:var(--text);font-size:11px;font-family:inherit;padding:5px 8px;border-radius:7px;width:100%;outline:none}
-.cmap-sel:focus{border-color:var(--accent)}
-.cmap-preview{font-size:10px;color:var(--text3);margin-top:8px;padding:6px 10px;background:var(--surface2);border-radius:6px}
-
-/* PREVIEW TABLE */
-.preview-wrap{display:none;overflow-x:auto;margin-top:16px;border-radius:10px;border:1px solid var(--border2)}
-.preview-wrap.show{display:block}
+/* Sheet summary chips */
+.sheet-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:4px}
+.sheet-chip{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center}
+.sheet-chip h4{font-size:11px;font-weight:700;margin-bottom:6px;color:var(--text2)}
+.sheet-chip .n{font-size:22px;font-weight:800}
+.sheet-chip .u{font-size:9px;color:var(--text3);margin-top:2px}
+.chip-oddp .n{color:#60a5fa}.chip-cg .n{color:#34d399}.chip-kader .n{color:#fbbf24}.chip-nakes .n{color:#c084fc}
+.sheet-chip.missing{opacity:.4}
+.sheet-chip.missing .n{color:var(--text3)}
+/* Preview tabs */
+.pv-tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.pv-tab{font-size:11px;font-weight:600;padding:6px 12px;border-radius:8px;cursor:pointer;background:var(--surface2);color:var(--text2);border:1px solid var(--border);font-family:inherit}
+.pv-tab.active{background:rgba(59,130,246,.15);color:#60a5fa;border-color:rgba(59,130,246,.3)}
+.preview-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border2)}
 .preview-table{width:100%;border-collapse:collapse;font-size:11px}
 .preview-table th{background:var(--surface2);color:var(--text2);font-weight:600;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
-.preview-table td{padding:7px 12px;border-bottom:1px solid var(--border);color:var(--text);white-space:nowrap}
+.preview-table td{padding:7px 12px;border-bottom:1px solid var(--border);white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis}
 .preview-table tr:last-child td{border-bottom:none}
-.preview-table tr:hover td{background:rgba(255,255,255,.02)}
-
-/* BUTTONS */
 .btn-row{display:flex;gap:10px;margin-top:20px}
 .btn{flex:1;padding:12px 18px;border-radius:10px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;border:none;transition:.15s}
 .btn-primary{background:linear-gradient(135deg,#3b82f6,#6d28d9);color:#fff}
-.btn-primary:hover{opacity:.9}
-.btn-primary:disabled{opacity:.5;cursor:wait}
+.btn-primary:hover{opacity:.9}.btn-primary:disabled{opacity:.5;cursor:wait}
 .btn-secondary{background:var(--surface2);color:var(--text2);border:1px solid var(--border)}
-.btn-secondary:hover{background:var(--surface3)}
-
-/* TOAST */
-#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1e3554;color:#dde8f8;font-size:12px;font-weight:600;padding:10px 20px;border-radius:10px;border:1px solid var(--border2);opacity:0;transition:.3s;pointer-events:none;z-index:9999;white-space:nowrap}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1e3554;color:#dde8f8;font-size:12px;font-weight:600;padding:10px 20px;border-radius:10px;border:1px solid var(--border2);opacity:0;transition:.3s;pointer-events:none;z-index:9999}
 #toast.show{opacity:1}
-
-/* PROGRESS */
-.progress{display:none;margin-top:16px}
-.progress.show{display:block}
+.progress{display:none;margin-top:16px}.progress.show{display:block}
 .progress-bar-wrap{height:6px;background:var(--surface2);border-radius:3px;overflow:hidden}
 .progress-bar{height:100%;background:linear-gradient(90deg,#3b82f6,#10b981);border-radius:3px;transition:width .3s;width:0%}
 .progress-text{font-size:11px;color:var(--text2);margin-top:6px;text-align:center}
-
-/* RESULT */
-.result-box{display:none;margin-top:16px;padding:16px;border-radius:10px;font-size:12px;text-align:center;font-weight:600}
+.result-box{display:none;margin-top:16px;padding:16px;border-radius:10px;font-size:12px;text-align:center;font-weight:600;line-height:1.8}
 .result-box.success{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:#34d399;display:block}
 .result-box.error{background:rgba(244,63,94,.1);border:1px solid rgba(244,63,94,.25);color:#f87171;display:block}
-
-/* UPLOAD HISTORY */
-.history-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:11px}
-.history-item:last-child{border-bottom:none}
-.history-badge{padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700}
-.badge-oddp{background:rgba(59,130,246,.15);color:#60a5fa}
-.badge-cg{background:rgba(16,185,129,.15);color:#34d399}
-.history-info{flex:1;color:var(--text2)}
-.history-ts{color:var(--text3);font-size:10px}
+.warn{color:var(--amber)}
 </style>
 </head>
 <body>
 <nav class="nav">
-  <div class="nav-brand">
-    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgiIGhlaWdodD0iMjgiIHZpZXdCb3g9IjAgMCAyOCAyOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxNCIgY3k9IjE0IiByPSIxNCIgZmlsbD0iIzBmMmE0YSIvPjxwYXRoIGQ9Ik03IDE0YzAgLTMuODYgMy4xNC03IDctN3M3IDMuMTQgNyA3LTMuMTQgNy03IDd2LTMuNWEzLjUgMy41IDAgMTAwLTciIHN0cm9rZT0iIzM4ZDlhOSIgc3Ryb2tlLXdpZHRoPSIxLjgiIGZpbGw9Im5vbmUiLz48L3N2Zz4=" alt="Logo">
-    BERSAHAJA — Upload Data
-  </div>
+  <div class="nav-brand">📤 BERSAHAJA — Upload Data</div>
   <div class="nav-right">
     <span class="user-badge" id="userBadge">–</span>
-    <button class="dashboard-btn" style="display:none" onclick="window.location.href='index_easy.html'">← Dashboard</button>
     <button class="logout-btn" onclick="doLogout()">Keluar</button>
   </div>
 </nav>
 
 <div class="main">
-  <div class="page-title">📤 Upload Data Monitoring</div>
-  <div class="page-sub">Pilih jenis data, unggah file Excel, petakan kolom, lalu kirim ke server.</div>
+  <div class="page-title">Upload Rekapan Bulanan</div>
+  <div class="page-sub">Unggah <strong>satu file Excel</strong> berisi 4 sheet (ODDP, PENDAMPING, KADER, NAKES). Semua akan dikirim ke server sekaligus.</div>
 
-  <!-- TYPE TABS -->
-  <div class="type-tabs">
-    <div class="type-tab active" id="tabODDP" onclick="setType('oddp')">
-      <h3>🧠 Data ODDP</h3>
-      <p>Monitoring perkembangan ODDP</p>
-    </div>
-    <div class="type-tab" id="tabCG" onclick="setType('cg')">
-      <h3>🤝 Data Caregiver</h3>
-      <p>Monitoring caregiver / pendamping</p>
-    </div>
-  </div>
-
-  <!-- UPLOAD FILE -->
+  <!-- UPLOAD -->
   <div class="card">
-    <div class="card-title">
-      <span>📁</span>
-      <span id="uploadCardTitle">Pilih File ODDP.xlsx</span>
-    </div>
+    <div class="card-title"><span>📁</span><span>Pilih File Rekapan (.xlsx)</span></div>
     <div class="drop-zone" id="dropZone">
       <input type="file" id="xlsInput" accept=".xlsx,.xls">
       <div class="drop-icon">📂</div>
-      <div class="drop-text" id="dropText">Klik atau drag & drop file Excel di sini</div>
-      <div class="drop-sub">Format: .xlsx atau .xls — Sheet pertama akan dibaca</div>
+      <div class="drop-text">Klik atau drag & drop file rekapan di sini</div>
+      <div class="drop-sub">Template harus punya sheet: ODDP · PENDAMPING · KADER · NAKES</div>
     </div>
     <div class="file-loaded" id="fileLoaded">
       <span style="font-size:20px">✅</span>
       <div>
         <div id="fileNameLabel" style="font-weight:600"></div>
-        <div id="fileRowCount" style="font-size:10px;color:var(--text2);margin-top:2px"></div>
+        <div id="filePeriod" style="font-size:10px;color:var(--text2);margin-top:2px"></div>
       </div>
-      <button onclick="resetFile()" style="margin-left:auto;font-size:11px;padding:4px 10px;border-radius:6px;cursor:pointer;background:var(--surface2);color:var(--text2);border:1px solid var(--border);font-family:inherit">✕ Ganti</button>
+      <button onclick="resetAll()" style="margin-left:auto;font-size:11px;padding:4px 10px;border-radius:6px;cursor:pointer;background:var(--surface2);color:var(--text2);border:1px solid var(--border);font-family:inherit">✕ Ganti</button>
     </div>
   </div>
 
-  <!-- COLUMN MAPPER -->
-  <div class="card cmap-box" id="cmapCard">
-    <div class="card-title">
-      <span>🗂️</span>
-      <span>Petakan Kolom Excel → Dashboard</span>
-    </div>
-    <div style="font-size:11px;color:var(--text2);margin-bottom:14px;line-height:1.7">
-      Dashboard mendeteksi <strong id="cmapFileInfo"></strong>. Pilih kolom yang sesuai.<br>
-      Kolom bertanda <strong style="color:#f87171">* wajib</strong> harus dipilih sebelum bisa upload.
-    </div>
-    <div class="cmap-scroll" id="cmapRows"></div>
-    <div class="cmap-preview" id="cmapPreview"></div>
+  <!-- SHEET SUMMARY -->
+  <div class="card" id="summaryCard" style="display:none">
+    <div class="card-title"><span>📊</span><span>Ringkasan Data Terbaca</span></div>
+    <div class="sheet-grid" id="sheetGrid"></div>
   </div>
 
   <!-- PREVIEW -->
   <div class="card" id="previewCard" style="display:none">
-    <div class="card-title">
-      <span>👀</span>
-      <span id="previewTitle">Preview Data (5 baris pertama)</span>
-    </div>
-    <div class="preview-wrap show" id="previewWrap"></div>
+    <div class="card-title"><span>👀</span><span>Preview Data</span></div>
+    <div class="pv-tabs" id="pvTabs"></div>
+    <div class="preview-wrap" id="previewWrap"></div>
   </div>
 
   <!-- ACTION -->
   <div class="card" id="actionCard" style="display:none">
     <div class="card-title"><span>🚀</span><span>Kirim ke Server</span></div>
     <div style="font-size:11px;color:var(--text2);margin-bottom:12px;line-height:1.7" id="uploadDesc"></div>
-
     <div class="progress" id="progressArea">
       <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
       <div class="progress-text" id="progressText">Mengirim data...</div>
     </div>
     <div class="result-box" id="resultBox"></div>
-
     <div class="btn-row">
       <button class="btn btn-secondary" onclick="resetAll()">↺ Reset</button>
-      <button class="btn btn-primary" id="submitBtn" onclick="submitData()">📤 Upload ke Server</button>
+      <button class="btn btn-primary" id="submitBtn" onclick="submitData()">📤 Upload Semua ke Server</button>
     </div>
-  </div>
-
-  <!-- HISTORY -->
-  <div class="card" id="historyCard">
-    <div class="card-title"><span>🕒</span><span>Riwayat Upload (sesi ini)</span></div>
-    <div id="historyList" style="color:var(--text3);font-size:11px">Belum ada upload dalam sesi ini.</div>
   </div>
 </div>
 
@@ -216,27 +136,27 @@ a{color:inherit;text-decoration:none}
 /* ── GANTI dengan URL deploy GAS kamu ── */
 var GAS_URL = 'https://script.google.com/macros/s/AKfycbzBjyrkhksYbQhv6RxnzHe_6j4QT_bzmeLdWjvwIL9AJnCITyylm3tlVJr9rJHaHm4i3g/exec';
 
-/* ── STATE ── */
-var currentType = 'oddp';
-var RAW_ORIG    = [];
-var EXCEL_COLS  = [];
-var FMAP        = {};
-var uploadHistory = [];
+var parsed = { oddp:[], cg:[], kader:[], nakes:[] };
+var bulanSet = [];
+var activePv = 'oddp';
 
-/* ── INIT ── */
-window.onload = function() {
-  var token = localStorage.getItem('bersahaja_token');
-  if (!token) { window.location.href = 'index.html'; return; }
-  var uname = localStorage.getItem('bersahaja_username') || '–';
-  document.getElementById('userBadge').textContent = uname;
-
-  document.getElementById('xlsInput').addEventListener('change', function() {
-    if (this.files[0]) loadExcelFile(this.files[0]);
-  });
-  setupDragDrop();
+var SHEET_META = {
+  oddp:  { label:'ODDP',       xlsx:'ODDP',       cls:'chip-oddp' },
+  cg:    { label:'Pendamping', xlsx:'PENDAMPING', cls:'chip-cg' },
+  kader: { label:'Kader',      xlsx:'KADER',      cls:'chip-kader' },
+  nakes: { label:'Nakes',      xlsx:'NAKES',      cls:'chip-nakes' }
 };
 
-/* ── LOGOUT ── */
+window.onload = function() {
+  if (!localStorage.getItem('bersahaja_token')) { window.location.href = 'index.html'; return; }
+  document.getElementById('userBadge').textContent = localStorage.getItem('bersahaja_username') || '–';
+  document.getElementById('xlsInput').addEventListener('change', function(){ if(this.files[0]) loadFile(this.files[0]); });
+  var dz = document.getElementById('dropZone');
+  dz.addEventListener('dragover', function(e){ e.preventDefault(); dz.classList.add('drag'); });
+  dz.addEventListener('dragleave', function(){ dz.classList.remove('drag'); });
+  dz.addEventListener('drop', function(e){ e.preventDefault(); dz.classList.remove('drag'); if(e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]); });
+};
+
 function doLogout() {
   localStorage.removeItem('bersahaja_token');
   localStorage.removeItem('bersahaja_username');
@@ -244,461 +164,224 @@ function doLogout() {
   window.location.href = 'index.html';
 }
 
-/* ── TYPE SWITCH ── */
-function setType(type) {
-  currentType = type;
-  document.getElementById('tabODDP').classList.toggle('active', type === 'oddp');
-  document.getElementById('tabCG').classList.toggle('active', type === 'cg');
-  document.getElementById('uploadCardTitle').textContent = type === 'oddp' ? 'Pilih File ODDP.xlsx' : 'Pilih File Caregiver.xlsx';
-  resetAll();
+/* ── BULAN PARSER ── */
+function toBulanKey(v) {
+  if (v === null || v === undefined || v === '') return null;
+  if (v instanceof Date) return v.getFullYear() + '-' + String(v.getMonth()+1).padStart(2,'0');
+  var s = String(v).trim();
+  var m = s.match(/^(\d{4})[.\-\/](\d{1,2})/);
+  if (m) return m[1] + '-' + String(parseInt(m[2])).padStart(2,'0');
+  return s;
 }
-
-/* ── DRAG & DROP ── */
-function setupDragDrop() {
-  var dz = document.getElementById('dropZone');
-  dz.addEventListener('dragover', function(e) { e.preventDefault(); dz.classList.add('drag'); });
-  dz.addEventListener('dragleave', function()  { dz.classList.remove('drag'); });
-  dz.addEventListener('drop', function(e) {
-    e.preventDefault(); dz.classList.remove('drag');
-    var file = e.dataTransfer.files[0];
-    if (file) loadExcelFile(file);
-  });
+function dateStr(v) {
+  if (v === null || v === undefined || v === '') return '';
+  if (v instanceof Date) return v.getFullYear()+'-'+String(v.getMonth()+1).padStart(2,'0')+'-'+String(v.getDate()).padStart(2,'0');
+  return String(v).trim();
 }
+function num(v){ if(v===''||v===null||v===undefined)return null; var n=parseFloat(String(v).replace(',','.')); return isNaN(n)?null:n; }
+function S(r,k){ return (r[k]!==undefined&&r[k]!==null)?String(r[k]).trim():''; }
 
-/* ── FILE LOADER ── */
-function loadExcelFile(file) {
-  if (!file) return;
+/* ── LOAD FILE ── */
+function loadFile(file) {
   var reader = new FileReader();
   reader.onload = function(e) {
     try {
-      var wb = XLSX.read(new Uint8Array(e.target.result), { type: 'array' });
-      var ws = wb.Sheets[wb.SheetNames[0]];
-      RAW_ORIG = XLSX.utils.sheet_to_json(ws, { defval: '' });
-      if (!RAW_ORIG.length) { showToast('⚠️ File Excel kosong'); return; }
-      EXCEL_COLS = Object.keys(RAW_ORIG[0]);
+      var wb = XLSX.read(new Uint8Array(e.target.result), { type:'array', cellDates:true });
+      parsed = { oddp:[], cg:[], kader:[], nakes:[] };
+      bulanSet = [];
+
+      var names = wb.SheetNames.map(function(n){ return n.toUpperCase().trim(); });
+      function getSheet(want) {
+        var idx = names.indexOf(want);
+        return idx >= 0 ? XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[idx]], { defval:'' }) : [];
+      }
+
+      parsed.oddp  = getSheet('ODDP').map(mapODDP).filter(Boolean);
+      parsed.cg    = getSheet('PENDAMPING').map(mapCG).filter(Boolean);
+      parsed.kader = getSheet('KADER').map(mapKader).filter(Boolean);
+      parsed.nakes = getSheet('NAKES').map(mapNakes).filter(Boolean);
+
+      var all = [].concat(parsed.oddp, parsed.cg, parsed.kader, parsed.nakes);
+      bulanSet = [...new Set(all.map(function(r){ return r.bulan; }).filter(Boolean))].sort();
+
+      var total = all.length;
+      if (total === 0) { showToast('⚠️ Tidak ada data valid. Cek nama sheet & kolom Bulan.'); return; }
+
       document.getElementById('fileLoaded').classList.add('show');
       document.getElementById('fileNameLabel').textContent = file.name;
-      document.getElementById('fileRowCount').textContent = RAW_ORIG.length + ' baris data ditemukan';
-      openColMap(file.name);
+      document.getElementById('filePeriod').textContent = 'Periode terdeteksi: ' + (bulanSet.join(', ') || '–') + ' · Total ' + total + ' baris';
+
+      renderSummary();
+      renderPreview();
+      buildUploadDesc();
+      document.getElementById('summaryCard').style.display = 'block';
+      document.getElementById('previewCard').style.display = 'block';
+      document.getElementById('actionCard').style.display = 'block';
     } catch(err) { showToast('❌ Gagal baca Excel: ' + err.message); }
   };
   reader.readAsArrayBuffer(file);
 }
 
-/* ── COL DEFS ── */
-function getColDefs() {
-  if (currentType === 'oddp') {
-    return [
-      {key:'colNama',      lbl:'Nama ODDP',                   required:true},
-      {key:'colKab',       lbl:'Kabupaten',                   required:true},
-      {key:'colKec',       lbl:'Kecamatan',                   required:true},
-      {key:'colPK',        lbl:'Puskesmas',                   required:false},
-      {key:'colDesa',      lbl:'Desa / Kelurahan',            required:true},
-      {key:'colJK',        lbl:'Jenis Kelamin',               required:false},
-      {key:'colBulan',     lbl:'Bulan / Periode',             required:true},
-      {key:'colADL',       lbl:'★ Skor ADL',                  required:true},
-      {key:'colPeng',      lbl:'★ Skor Kondisi Pengobatan',   required:true},
-      {key:'colSosial',    lbl:'★ Skor Kegiatan Sosial',      required:true},
-      {key:'colKom',       lbl:'★ Skor Komunikasi',           required:true},
-      {key:'colProd',      lbl:'★ Skor Aktivitas Produktif',  required:true},
-      {key:'colKetADL',    lbl:'Keterangan ADL',              required:false},
-      {key:'colKetPeng',   lbl:'Keterangan Pengobatan',       required:false},
-      {key:'colKetSosial', lbl:'Keterangan Sosial',           required:false},
-      {key:'colKetKom',    lbl:'Keterangan Komunikasi',       required:false},
-      {key:'colKetProd',   lbl:'Keterangan Produktif',        required:false},
-    ];
-  } else {
-    return [
-      {key:'colNama',           lbl:'Nama Caregiver',                required:true},
-      {key:'colNamaPend',       lbl:'Nama Pendampingan (alias)',      required:false},
-      {key:'colKab',            lbl:'Kabupaten',                     required:true},
-      {key:'colKec',            lbl:'Kecamatan',                     required:true},
-      {key:'colPK',             lbl:'Puskesmas',                     required:false},
-      {key:'colDesa',           lbl:'Desa / Kelurahan',              required:true},
-      {key:'colJK',             lbl:'Jenis Kelamin',                 required:false},
-      {key:'colBulan',          lbl:'Bulan / Periode',               required:true},
-      {key:'colFisik',          lbl:'★ Skor Kondisi Fisik',          required:true},
-      {key:'colPP',             lbl:'★ Skor Pend. Pengobatan',       required:true},
-      {key:'colPPDPRK',         lbl:'★ Skor Pengetahuan CG (PPDPRK)',required:true},
-      {key:'colADL',            lbl:'★ Skor Pend. Aktivitas',        required:true},
-      {key:'colAdvokasi',       lbl:'★ Skor Advokasi Diri',          required:true},
-      {key:'colKetFisik',       lbl:'Keterangan Kondisi Fisik',      required:false},
-      {key:'colKetPP',          lbl:'Keterangan Pend. Pengobatan',   required:false},
-      {key:'colKetPPDPRK',      lbl:'Keterangan Pengetahuan CG',     required:false},
-      {key:'colKetADL',         lbl:'Keterangan Pend. Aktivitas',    required:false},
-      {key:'colKetAdvokasi',    lbl:'Keterangan Advokasi',           required:false},
-    ];
-  }
-}
-
-/* ── AUTO GUESS ── */
-function autoGuess(colDefs, cols) {
-  var pODDP = {
-    colNama:/^nama$/i, colKab:/kabupaten|kab/i, colKec:/kecamatan|kec/i,
-    colPK:/puskesmas|pkm/i, colDesa:/desa|kelurahan/i, colJK:/jenis.kelamin|^jk$|^gender$/i,
-    colBulan:/^bulan$|kode.bulan|periode|month|tgl|tanggal/i,
-    colADL:/adl.*(kunj|kunjungan).*2|kunjungan.*2.*adl/i,
-    colPeng:/(pengobatan|obat).*(kunj|kunjungan).*2|kunj.*2.*(pengobatan|obat)/i,
-    colSosial:/(sosial|kegiatan).*(kunj|kunjungan).*2|kunj.*2.*sosial/i,
-    colKom:/komunikasi.*(kunj|kunjungan).*2|kunj.*2.*komunikasi/i,
-    colProd:/(produktif|aktivitas).*(kunj|kunjungan).*2|kunj.*2.*(produktif|aktivitas)/i,
-    colKetADL:/ket.*adl|keterangan.*adl/i,
-    colKetPeng:/ket.*(pengobatan|obat)|keterangan.*(pengobatan|obat)/i,
-    colKetSosial:/ket.*sosial|keterangan.*sosial/i,
-    colKetKom:/ket.*komunikasi|keterangan.*komunikasi/i,
-    colKetProd:/ket.*(produktif|aktivitas)|keterangan.*(produktif|aktivitas)/i,
+/* ── MAPPERS (kolom template FIXED) ── */
+function mapODDP(r) {
+  var bulan = toBulanKey(r['Bulan']);
+  var nama = S(r,'Nama');
+  if (!nama || !bulan) return null;
+  return {
+    nama:nama, nik:S(r,'NIK'), jk:S(r,'Jenis Kelamin'), umur:S(r,'Umur'), pekerjaan:S(r,'Pekerjaan'),
+    kab:S(r,'Kabupaten'), kec:S(r,'Kecamatan'), desa:S(r,'Desa'), pk:S(r,'Puskesmas'), bulan:bulan,
+    pendamping:S(r,'Nama Pendamping'), kader:S(r,'Kader'), diagnosa:S(r,'Diagnosa'),
+    kekambuhan:S(r,'Tingkat Kekambuhan'), keparahan:S(r,'Tingkat Keparahan'),
+    status:S(r,'Status (Stabil/Belum Stabil/Amuk)'), bpjs:S(r,'BPJS (Ya/Tidak)'), kode_ir:S(r,'Kode IR'),
+    adl:num(r['ADL Kunjungan 2']), peng:num(r['Kondisi Pengobatan Kunjungan 2']),
+    sosial:num(r['Kegiatan Sosial Kunjungan 2']), prod:num(r['Aktifitas Produktif Kunjungan 2']),
+    kom:num(r['Komunikasi Kunjungan 2']),
+    ket_adl:S(r,'Keterangan ADL'), ket_peng:S(r,'Keterangan Kondisi Pengobatan'),
+    ket_sosial:S(r,'Keterangan Kegiatan Sosial'), ket_prod:S(r,'Keterangan Aktivitas Produktif'),
+    ket_kom:S(r,'Keterangan Komunikasi'),
+    status_kepulihan:S(r,'Status Kepulihan\n(Pemulihan Awal, Pemulihan Berkembang, Pemulihan Lanjut)'),
+    pihak_terlibat:S(r,'Pihak Terlibat'),
+    kunjungan_faskes:S(r,'Kunjungan ke Faskes\n(Ya/Tidak)'),
+    non_farmakologi:S(r,'Non-farmakologi\n(Ya/Tidak)'),
+    rekomendasi:S(r,'Rekomendasi Dari Tenaga Kesehatan '), catatan:S(r,'Catatan'), co:S(r,'CO')
   };
-  var pCG = {
-    colNama:/^nama caregiver$|^nama cg$|^nama$/i,
-    colNamaPend:/nama.*pendamping|pendamping.*nama/i,
-    colKab:/kabupaten|kab/i, colKec:/kecamatan|kec/i,
-    colPK:/puskesmas|pkm/i, colDesa:/desa|kelurahan/i,
-    colJK:/jenis.kelamin|^jk$|^gender$/i,
-    colBulan:/^bulan$|kode.bulan|periode|month|tgl|tanggal/i,
-    colFisik:/kondisi.fisik.*(kunj|kunjungan).*2|kunj.*2.*kondisi.fisik/i,
-    colPP:/(pendampingan|pend).*(pengobatan|obat).*(kunj|kunjungan).*2/i,
-    colPPDPRK:/ppdprk.*(kunj|kunjungan).*2|pengetahuan.*(caregiver|cg).*(kunj|kunjungan).*2/i,
-    colADL:/(pendampingan|pend).*(adl|aktivitas).*(kunj|kunjungan).*2/i,
-    colAdvokasi:/advokasi.*(kunj|kunjungan).*2|kunj.*2.*advokasi/i,
-    colKetFisik:/ket.*fisik|keterangan.*fisik/i,
-    colKetPP:/ket.*(pend.*pengobatan|pengobatan.*pend)/i,
-    colKetPPDPRK:/ket.*ppdprk|keterangan.*ppdprk/i,
-    colKetADL:/ket.*(pend.*adl|adl.*pend)/i,
-    colKetAdvokasi:/ket.*advokasi|keterangan.*advokasi/i,
+}
+function mapCG(r) {
+  var bulan = toBulanKey(r['Bulan']);
+  var nama = S(r,'Nama Pendamping');
+  if (!nama || !bulan) return null;
+  return {
+    nama:nama, nama_pendampingan:nama, jk:S(r,'JK'), umur:S(r,'Umur'), profesi:S(r,'Profesi'),
+    kab:S(r,'Kabupaten'), kec:S(r,'Kecamatan'), desa:S(r,'Desa'), pk:S(r,'Puskesmas'), bulan:bulan,
+    kode_ir:S(r,'Kode IR'), kader:S(r,'Kader'),
+    fisik:num(r['Kondisi Fisik Pendamping Kunjungan 2']), ppdprk:num(r['PPDPRK kunjungan 2']),
+    pp:num(r['Pendampingan Pengobatan Kunjungan 2']), adl:num(r['Pendampingan ADL, AP, AS Kunjungan 2']),
+    advokasi:num(r['Advokasi Diri Kunjungan 2']),
+    ket_fisik:S(r,'Ket. Kondisi Fisik'), ket_ppdprk:S(r,'Ket. PPDPRK'), ket_pp:S(r,'Ket. PP'),
+    ket_adl:S(r,'Ket. Pendampingan ADL, AP, AS'), ket_advokasi:S(r,'Ket. Advokasi Diri'),
+    catatan:S(r,'Catatan'), co:S(r,'CO')
   };
-  var patterns = currentType === 'oddp' ? pODDP : pCG;
-  var result = {};
-  colDefs.forEach(function(cd) {
-    var pat = patterns[cd.key];
-    if (pat) result[cd.key] = cols.find(function(c) { return pat.test(c); }) || '';
-    else result[cd.key] = '';
-  });
-  return result;
+}
+function mapKader(r) {
+  var bulan = toBulanKey(r['Bulan']);
+  var nama = S(r,'Nama Kader');
+  if (!nama || !bulan) return null;
+  return {
+    nama_kader:nama, jk:S(r,'JK'), umur:S(r,'Umur'), kontak:S(r,'No. Kontak'),
+    kab:S(r,'Kabupaten'), kec:S(r,'Kecamatan'), desa:S(r,'Desa'), pk:S(r,'Puskesmas'), bulan:bulan,
+    nama_oddp:S(r,'Nama ODDP yang dikunjungi'),
+    tgl_kunjungan1:dateStr(r['Tanggal Kunjungan 1']), tgl_kunjungan2:dateStr(r['Tanggal Kunjungan 2']),
+    hasil_observasi:S(r,'Hasil Observasi'), tantangan:S(r,'Tantangan'), rtl:S(r,'RTL'),
+    catatan:S(r,'Catatan'), co:S(r,'CO')
+  };
+}
+function mapNakes(r) {
+  var bulan = toBulanKey(r['Bulan']);
+  var nama = S(r,'Nama NAKES');
+  if (!nama || !bulan) return null;
+  return {
+    nama_nakes:nama, jk:S(r,'JK'), umur:S(r,'Umur'), jabatan:S(r,'Jabatan'), kontak:S(r,'No. Kontak'),
+    asal_pk:S(r,'Asal Puskesmas'), kab:S(r,'Kabupaten'), kec:S(r,'Kecamatan'), desa:S(r,'Desa'), bulan:bulan,
+    nama_oddp:S(r,'Nama ODDP yang dikunjungi'), tgl_kunjungan:dateStr(r['Tanggal Kunjungan']),
+    kunjungan:S(r,'Kunjungan'), hasil_observasi:S(r,'Hasil Observasi'),
+    tantangan:S(r,'Tantangan'), rtl:S(r,'RTL'), catatan:S(r,'Catatan'), co:S(r,'CO')
+  };
 }
 
-/* ── OPEN COL MAP ── */
-function openColMap(fname) {
-  var colDefs = getColDefs();
-  var guessed = autoGuess(colDefs, EXCEL_COLS);
-  FMAP = Object.assign({}, guessed);
-
-  document.getElementById('cmapFileInfo').textContent = EXCEL_COLS.length + ' kolom dari ' + fname;
-
-  var optHtml = '<option value="">-- Pilih Kolom --</option>' +
-    EXCEL_COLS.map(function(c) { return '<option value="' + escH(c) + '">' + escH(c) + '</option>'; }).join('');
-
-  document.getElementById('cmapRows').innerHTML = colDefs.map(function(cd) {
-    return '<div class="cmap-row">' +
-      '<div class="cmap-lbl">' + escH(cd.lbl) +
-        (cd.required ? '<small style="color:#f87171">* wajib</small>' : '<small>opsional</small>') +
-      '</div>' +
-      '<select class="cmap-sel" id="cmap_' + cd.key + '" onchange="onCmapChange()">' +
-        optHtml +
-      '</select></div>';
+/* ── SUMMARY ── */
+function renderSummary() {
+  document.getElementById('sheetGrid').innerHTML = Object.keys(SHEET_META).map(function(k) {
+    var m = SHEET_META[k]; var n = parsed[k].length;
+    return '<div class="sheet-chip '+m.cls+(n===0?' missing':'')+'">' +
+      '<h4>'+m.label+'</h4><div class="n">'+n+'</div><div class="u">baris</div></div>';
   }).join('');
-
-  // Terapkan auto-guess
-  colDefs.forEach(function(cd) {
-    var sel = document.getElementById('cmap_' + cd.key);
-    if (sel && FMAP[cd.key] && EXCEL_COLS.includes(FMAP[cd.key])) sel.value = FMAP[cd.key];
-  });
-
-  document.getElementById('cmapCard').classList.add('show');
-  onCmapChange();
 }
 
-function onCmapChange() {
-  var colDefs = getColDefs();
-  colDefs.forEach(function(cd) {
-    var sel = document.getElementById('cmap_' + cd.key);
-    if (sel) FMAP[cd.key] = sel.value;
-  });
-  // Preview baris pertama
-  var sample = RAW_ORIG[0] || {};
-  var namaCol = FMAP['colNama'];
-  var bulanCol = FMAP['colBulan'];
-  var prev = 'Preview baris 1: ';
-  if (namaCol) prev += 'Nama="' + (sample[namaCol] || '') + '" ';
-  if (bulanCol) prev += 'Bulan="' + (sample[bulanCol] || '') + '"';
-  document.getElementById('cmapPreview').textContent = prev;
-
-  // Validate dan tampilkan preview + action
-  var allRequired = getColDefs().filter(function(c) { return c.required; }).every(function(c) { return !!FMAP[c.key]; });
-  if (allRequired && RAW_ORIG.length) {
-    buildPreview();
-    document.getElementById('previewCard').style.display = 'block';
-    document.getElementById('actionCard').style.display  = 'block';
-    buildUploadDesc();
-  } else {
-    document.getElementById('previewCard').style.display = 'none';
-    document.getElementById('actionCard').style.display  = 'none';
-  }
-}
-
-/* ── PREVIEW TABLE ── */
-function buildPreview() {
-  var colDefs = getColDefs().filter(function(c) { return !!FMAP[c.key]; });
-  var sample  = RAW_ORIG.slice(0, 5);
-  var head = '<tr>' + colDefs.map(function(c) { return '<th>' + escH(c.lbl) + '</th>'; }).join('') + '</tr>';
-  var body = sample.map(function(r) {
-    return '<tr>' + colDefs.map(function(c) {
-      return '<td>' + escH(String(r[FMAP[c.key]] || '')) + '</td>';
-    }).join('') + '</tr>';
-  }).join('');
-  document.getElementById('previewWrap').innerHTML = '<table class="preview-table"><thead>' + head + '</thead><tbody>' + body + '</tbody></table>';
-  document.getElementById('previewTitle').textContent = 'Preview Data (' + Math.min(5, RAW_ORIG.length) + ' dari ' + RAW_ORIG.length + ' baris)';
-}
-
-/* ── BULAN PARSER (sama persis dengan logic di dashboard) ── */
-var BULAN_INDO = {
-  'januari':1,'februari':2,'maret':3,'april':4,'mei':5,'juni':6,
-  'juli':7,'agustus':8,'september':9,'oktober':10,'november':11,'desember':12,
-  'jan':1,'feb':2,'mar':3,'apr':4,'jun':6,'jul':7,'agu':8,'agt':8,
-  'sep':9,'okt':10,'nov':11,'des':12,
-  'january':1,'february':2,'march':3,'may':5,'june':6,'july':7,
-  'august':8,'october':10,'december':12
+/* ── PREVIEW ── */
+var PV_COLS = {
+  oddp:  [['Nama','nama'],['Kab','kab'],['Kec','kec'],['Desa','desa'],['Bulan','bulan'],['ADL','adl'],['Peng','peng'],['Sosial','sosial'],['Prod','prod'],['Kom','kom']],
+  cg:    [['Nama','nama'],['Kab','kab'],['Kec','kec'],['Bulan','bulan'],['Fisik','fisik'],['PPDPRK','ppdprk'],['PP','pp'],['ADL','adl'],['Advokasi','advokasi']],
+  kader: [['Nama Kader','nama_kader'],['Kab','kab'],['Desa','desa'],['Bulan','bulan'],['ODDP Dikunjungi','nama_oddp'],['Hasil Observasi','hasil_observasi']],
+  nakes: [['Nama Nakes','nama_nakes'],['Jabatan','jabatan'],['Kec','kec'],['Bulan','bulan'],['ODDP Dikunjungi','nama_oddp'],['Hasil Observasi','hasil_observasi']]
 };
-
-function parseMonthYear(raw) {
-  if (raw === null || raw === undefined || raw === '') return null;
-  var s = String(raw).trim();
-  var num = Number(s);
-  // Excel serial (tanggal)
-  if (!isNaN(num) && num > 40000 && num < 60000) {
-    var d = new Date((num - 25569) * 86400000);
-    return { year: d.getUTCFullYear(), month: d.getUTCMonth() + 1 };
-  }
-  // YYYYMM
-  if (/^\d{6}$/.test(s)) {
-    var y = parseInt(s.slice(0,4)), m = parseInt(s.slice(4,6));
-    if (y > 2000 && m >= 1 && m <= 12) return { year: y, month: m };
-  }
-  // YYYY-MM
-  var ym = s.match(/^(\d{4})[.\-\/](\d{1,2})$/);
-  if (ym) {
-    var y2 = parseInt(ym[1]), m2 = parseInt(ym[2]);
-    if (y2 > 2000 && m2 >= 1 && m2 <= 12) return { year: y2, month: m2 };
-  }
-  // Nama bulan + tahun: "Maret 2025" / "Mar-25"
-  var nm = s.match(/([a-zA-Z]+)[.\-\s]+(\d{2,4})/);
-  if (nm) {
-    var mName = nm[1].toLowerCase();
-    var mNum  = BULAN_INDO[mName];
-    if (mNum) {
-      var yRaw = parseInt(nm[2]);
-      var yr = yRaw < 100 ? 2000 + yRaw : yRaw;
-      return { year: yr, month: mNum };
-    }
-  }
-  // Angka 1-12
-  if (!isNaN(num) && num >= 1 && num <= 12) {
-    return { year: new Date().getFullYear(), month: num };
-  }
-  return null;
+function renderPreview() {
+  document.getElementById('pvTabs').innerHTML = Object.keys(SHEET_META).map(function(k) {
+    return '<button class="pv-tab '+(k===activePv?'active':'')+'" onclick="setPv(\''+k+'\')">'+SHEET_META[k].label+' ('+parsed[k].length+')</button>';
+  }).join('');
+  var cols = PV_COLS[activePv], data = parsed[activePv].slice(0,5);
+  if (!data.length) { document.getElementById('previewWrap').innerHTML = '<div style="padding:20px;text-align:center;color:var(--text3);font-size:12px">Sheet '+SHEET_META[activePv].label+' kosong / tidak ditemukan</div>'; return; }
+  var head = '<tr>'+cols.map(function(c){return '<th>'+c[0]+'</th>';}).join('')+'</tr>';
+  var body = data.map(function(r){ return '<tr>'+cols.map(function(c){ var v=r[c[1]]; return '<td>'+escH(v===null||v===undefined?'':String(v))+'</td>'; }).join('')+'</tr>'; }).join('');
+  document.getElementById('previewWrap').innerHTML = '<table class="preview-table"><thead>'+head+'</thead><tbody>'+body+'</tbody></table>';
 }
+function setPv(k){ activePv=k; renderPreview(); }
 
-function toBulanKey(parsed) {
-  if (!parsed) return null;
-  return parsed.year + '-' + String(parsed.month).padStart(2, '0');
-}
-
-/* ── MAP ROW ── */
-function mapRow(r) {
-  if (currentType === 'oddp') return mapRowODDP(r);
-  return mapRowCG(r);
-}
-
-function numParse(v) {
-  if (v === null || v === undefined || v === '') return null;
-  var n = parseFloat(String(v).replace(',', '.'));
-  return isNaN(n) ? null : n;
-}
-
-function mapRowODDP(r) {
-  var parsed = parseMonthYear(FMAP.colBulan ? r[FMAP.colBulan] : '');
-  if (!parsed) return null;
-  var bulanKey = toBulanKey(parsed);
-  return {
-    nama:      FMAP.colNama    ? String(r[FMAP.colNama]||'').trim()    : '',
-    kab:       FMAP.colKab     ? String(r[FMAP.colKab]||'').trim()     : '',
-    kec:       FMAP.colKec     ? String(r[FMAP.colKec]||'').trim()     : '',
-    pk:        FMAP.colPK      ? String(r[FMAP.colPK]||'').trim()      : '',
-    desa:      FMAP.colDesa    ? String(r[FMAP.colDesa]||'').trim()    : '',
-    jk:        FMAP.colJK      ? String(r[FMAP.colJK]||'').trim()      : '',
-    bulan:     bulanKey,
-    adl:       numParse(FMAP.colADL    ? r[FMAP.colADL]    : null),
-    peng:      numParse(FMAP.colPeng   ? r[FMAP.colPeng]   : null),
-    sosial:    numParse(FMAP.colSosial ? r[FMAP.colSosial] : null),
-    kom:       numParse(FMAP.colKom    ? r[FMAP.colKom]    : null),
-    prod:      numParse(FMAP.colProd   ? r[FMAP.colProd]   : null),
-    ket_adl:    FMAP.colKetADL    ? String(r[FMAP.colKetADL]||'').trim()    : '',
-    ket_peng:   FMAP.colKetPeng   ? String(r[FMAP.colKetPeng]||'').trim()   : '',
-    ket_sosial: FMAP.colKetSosial ? String(r[FMAP.colKetSosial]||'').trim() : '',
-    ket_kom:    FMAP.colKetKom    ? String(r[FMAP.colKetKom]||'').trim()    : '',
-    ket_prod:   FMAP.colKetProd   ? String(r[FMAP.colKetProd]||'').trim()   : '',
-  };
-}
-
-function mapRowCG(r) {
-  var parsed = parseMonthYear(FMAP.colBulan ? r[FMAP.colBulan] : '');
-  if (!parsed) return null;
-  var bulanKey = toBulanKey(parsed);
-  var nm1 = FMAP.colNama    ? String(r[FMAP.colNama]||'').trim()    : '';
-  var nm2 = FMAP.colNamaPend? String(r[FMAP.colNamaPend]||'').trim(): '';
-  return {
-    nama:              nm1 || nm2,
-    nama_pendampingan: nm2,
-    kab:       FMAP.colKab  ? String(r[FMAP.colKab]||'').trim()  : '',
-    kec:       FMAP.colKec  ? String(r[FMAP.colKec]||'').trim()  : '',
-    pk:        FMAP.colPK   ? String(r[FMAP.colPK]||'').trim()   : '',
-    desa:      FMAP.colDesa ? String(r[FMAP.colDesa]||'').trim() : '',
-    jk:        FMAP.colJK   ? String(r[FMAP.colJK]||'').trim()   : '',
-    bulan:     bulanKey,
-    fisik:     numParse(FMAP.colFisik    ? r[FMAP.colFisik]    : null),
-    pp:        numParse(FMAP.colPP       ? r[FMAP.colPP]       : null),
-    ppdprk:    numParse(FMAP.colPPDPRK   ? r[FMAP.colPPDPRK]  : null),
-    adl:       numParse(FMAP.colADL      ? r[FMAP.colADL]      : null),
-    advokasi:  numParse(FMAP.colAdvokasi ? r[FMAP.colAdvokasi] : null),
-    ket_fisik:    FMAP.colKetFisik    ? String(r[FMAP.colKetFisik]||'').trim()    : '',
-    ket_pp:       FMAP.colKetPP       ? String(r[FMAP.colKetPP]||'').trim()       : '',
-    ket_ppdprk:   FMAP.colKetPPDPRK   ? String(r[FMAP.colKetPPDPRK]||'').trim()  : '',
-    ket_adl:      FMAP.colKetADL      ? String(r[FMAP.colKetADL]||'').trim()      : '',
-    ket_advokasi: FMAP.colKetAdvokasi ? String(r[FMAP.colKetAdvokasi]||'').trim() : '',
-  };
-}
-
-/* ── BUILD UPLOAD DESC ── */
+/* ── DESC ── */
 function buildUploadDesc() {
-  var mapped = RAW_ORIG.map(mapRow).filter(function(r) { return r && r.nama; });
-  var bulanSet = [...new Set(mapped.map(function(r) { return r.bulan; }).filter(Boolean))].sort();
-  var desc = 'Siap mengirim <strong>' + mapped.length + ' baris</strong> data ' +
-    (currentType === 'oddp' ? 'ODDP' : 'Caregiver') + ' ke server.<br>' +
-    'Periode yang terdeteksi: <strong>' + (bulanSet.join(', ') || '–') + '</strong>.<br>' +
-    '<span style="color:#f59e0b">⚠️ Data periode yang sama di server akan diganti oleh upload ini.</span>';
-  document.getElementById('uploadDesc').innerHTML = desc;
+  var counts = Object.keys(SHEET_META).map(function(k){ return SHEET_META[k].label+': '+parsed[k].length; }).join(' · ');
+  document.getElementById('uploadDesc').innerHTML =
+    'Akan dikirim → <strong>'+counts+'</strong><br>' +
+    'Periode: <strong>'+(bulanSet.join(', ')||'–')+'</strong><br>' +
+    '<span class="warn">⚠️ Data periode yang sama di server akan diganti oleh upload ini (semua 4 kategori).</span>';
 }
 
 /* ── SUBMIT ── */
 function submitData() {
   var token = localStorage.getItem('bersahaja_token');
   if (!token) { window.location.href = 'index.html'; return; }
-
-  var mapped = RAW_ORIG.map(mapRow).filter(function(r) { return r && r.nama; });
-  if (!mapped.length) { showToast('⚠️ Tidak ada baris data valid setelah mapping'); return; }
-
-  var bulanList = [...new Set(mapped.map(function(r) { return r.bulan; }).filter(Boolean))];
+  var total = parsed.oddp.length + parsed.cg.length + parsed.kader.length + parsed.nakes.length;
+  if (!total) { showToast('⚠️ Tidak ada data untuk dikirim'); return; }
 
   var btn = document.getElementById('submitBtn');
-  btn.disabled = true;
-  btn.textContent = '⏳ Mengirim...';
+  btn.disabled = true; btn.textContent = '⏳ Mengirim...';
   document.getElementById('progressArea').classList.add('show');
   document.getElementById('resultBox').className = 'result-box';
-  animProgress(0, 60, 1500);
+  animProgress(0, 65, 1800);
 
-  var action = currentType === 'oddp' ? 'upload_oddp' : 'upload_cg';
-  var payload = { action: action, token: token, rows: mapped, bulan_list: bulanList };
+  var payload = { action:'upload_all', token:token,
+    oddp:parsed.oddp, cg:parsed.cg, kader:parsed.kader, nakes:parsed.nakes, bulan_list:bulanSet };
 
-  fetch(GAS_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify(payload)
-  })
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    animProgress(60, 100, 400);
-    btn.disabled = false;
-    btn.textContent = '📤 Upload ke Server';
-    setTimeout(function() {
-      document.getElementById('progressArea').classList.remove('show');
-      document.getElementById('progressBar').style.width = '0%';
-    }, 600);
-
+  fetch(GAS_URL, { method:'POST', headers:{ 'Content-Type':'text/plain;charset=utf-8' }, body:JSON.stringify(payload) })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    animProgress(65, 100, 400);
+    btn.disabled = false; btn.textContent = '📤 Upload Semua ke Server';
+    setTimeout(function(){ document.getElementById('progressArea').classList.remove('show'); document.getElementById('progressBar').style.width='0%'; }, 700);
     if (data.success) {
-      var msg = '✅ Berhasil upload ' + data.count + ' baris ' + (currentType.toUpperCase()) + ' ke server.';
-      showResult(msg, 'success');
-      showToast(msg);
-      addHistory(currentType, data.count, bulanList);
+      var c = data.counts || {};
+      showResult('✅ Upload berhasil!<br>ODDP: '+(c.oddp||0)+' · Pendamping: '+(c.cg||0)+' · Kader: '+(c.kader||0)+' · Nakes: '+(c.nakes||0)+' baris', 'success');
+      showToast('✅ Semua data terkirim ke server');
     } else {
-      showResult('❌ Gagal: ' + (data.error || 'Unknown error'), 'error');
-      if (data.error && data.error.includes('login')) { window.location.href = 'index.html'; }
+      showResult('❌ Gagal: '+(data.error||'Unknown error'), 'error');
+      if (data.error && data.error.indexOf('login')>=0) window.location.href='index.html';
     }
   })
-  .catch(function(err) {
-    btn.disabled = false;
-    btn.textContent = '📤 Upload ke Server';
+  .catch(function(err){
+    btn.disabled = false; btn.textContent = '📤 Upload Semua ke Server';
     document.getElementById('progressArea').classList.remove('show');
-    showResult('⚠️ Koneksi gagal: ' + err.message, 'error');
+    showResult('⚠️ Koneksi gagal: '+err.message, 'error');
   });
 }
 
-/* ── PROGRESS ANIMATION ── */
-function animProgress(from, to, duration) {
-  var start = performance.now();
-  var bar = document.getElementById('progressBar');
-  var txt = document.getElementById('progressText');
-  function step(now) {
-    var t = Math.min((now - start) / duration, 1);
-    var val = from + (to - from) * t;
-    bar.style.width = val.toFixed(0) + '%';
-    txt.textContent = val.toFixed(0) + '% — Mengirim data...';
-    if (t < 1) requestAnimationFrame(step);
-  }
+function animProgress(from, to, dur) {
+  var start = performance.now(), bar = document.getElementById('progressBar'), txt = document.getElementById('progressText');
+  function step(now){ var t=Math.min((now-start)/dur,1), v=from+(to-from)*t; bar.style.width=v.toFixed(0)+'%'; txt.textContent=v.toFixed(0)+'% — Mengirim data...'; if(t<1)requestAnimationFrame(step); }
   requestAnimationFrame(step);
 }
-
-function showResult(msg, type) {
-  var el = document.getElementById('resultBox');
-  el.innerHTML = msg;
-  el.className = 'result-box ' + type;
-}
-
-/* ── HISTORY ── */
-function addHistory(type, count, bulanList) {
-  var ts = new Date().toLocaleString('id-ID', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
-  uploadHistory.unshift({ type: type, count: count, bulan: bulanList.join(', '), ts: ts });
-  renderHistory();
-}
-
-function renderHistory() {
-  if (!uploadHistory.length) return;
-  document.getElementById('historyList').innerHTML = uploadHistory.map(function(h) {
-    return '<div class="history-item">' +
-      '<span class="history-badge badge-' + h.type + '">' + h.type.toUpperCase() + '</span>' +
-      '<div class="history-info">' +
-        '<strong>' + h.count + ' baris</strong> — ' + h.bulan +
-      '</div>' +
-      '<span class="history-ts">' + h.ts + '</span>' +
-    '</div>';
-  }).join('');
-}
-
-/* ── RESET ── */
-function resetFile() {
-  RAW_ORIG = []; EXCEL_COLS = []; FMAP = {};
-  document.getElementById('xlsInput').value = '';
-  document.getElementById('fileLoaded').classList.remove('show');
-  document.getElementById('cmapCard').classList.remove('show');
-  document.getElementById('previewCard').style.display = 'none';
-  document.getElementById('actionCard').style.display  = 'none';
-  document.getElementById('resultBox').className = 'result-box';
-}
+function showResult(msg, type){ var el=document.getElementById('resultBox'); el.innerHTML=msg; el.className='result-box '+type; }
 
 function resetAll() {
-  resetFile();
-  document.getElementById('resultBox').className = 'result-box';
-  document.getElementById('progressArea').classList.remove('show');
+  parsed = { oddp:[], cg:[], kader:[], nakes:[] }; bulanSet=[]; activePv='oddp';
+  document.getElementById('xlsInput').value='';
+  document.getElementById('fileLoaded').classList.remove('show');
+  document.getElementById('summaryCard').style.display='none';
+  document.getElementById('previewCard').style.display='none';
+  document.getElementById('actionCard').style.display='none';
+  document.getElementById('resultBox').className='result-box';
 }
 
-/* ── HELPERS ── */
-function escH(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
-function showToast(msg) {
-  var el = document.getElementById('toast');
-  el.textContent = msg;
-  el.classList.add('show');
-  clearTimeout(el._t);
-  el._t = setTimeout(function() { el.classList.remove('show'); }, 3000);
-}
+function escH(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function showToast(msg){ var el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(el._t); el._t=setTimeout(function(){el.classList.remove('show');},3200); }
 </script>
 </body>
 </html>
