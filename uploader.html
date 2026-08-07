@@ -179,7 +179,15 @@ function dateStr(v) {
   return String(v).trim();
 }
 function num(v){ if(v===''||v===null||v===undefined)return null; var n=parseFloat(String(v).replace(',','.')); return isNaN(n)?null:n; }
-function S(r,k){ return (r[k]!==undefined&&r[k]!==null)?String(r[k]).trim():''; }
+function S(r,k){
+  // 1) exact match
+  if(r[k]!==undefined&&r[k]!==null&&String(r[k]).trim()!=='')return String(r[k]).trim();
+  // 2) fuzzy: cari header yang cocok mengabaikan \r \n spasi ganda & case
+  var norm=function(s){return String(s).toLowerCase().replace(/[\r\n]+/g,' ').replace(/\s+/g,' ').trim();};
+  var target=norm(k);
+  for(var kk in r){ if(norm(kk)===target)return String(r[kk]).trim(); }
+  return '';
+}
 
 /* ── LOAD FILE ── */
 function loadFile(file) {
@@ -239,10 +247,10 @@ function mapODDP(r) {
     ket_adl:S(r,'Keterangan ADL'), ket_peng:S(r,'Keterangan Kondisi Pengobatan'),
     ket_sosial:S(r,'Keterangan Kegiatan Sosial'), ket_prod:S(r,'Keterangan Aktivitas Produktif'),
     ket_kom:S(r,'Keterangan Komunikasi'),
-    status_kepulihan:S(r,'Status Kepulihan\n(Pemulihan Awal, Pemulihan Berkembang, Pemulihan Lanjut)'),
+    status_kepulihan:S(r,'Status Kepulihan (Pemulihan Awal, Pemulihan Berkembang, Pemulihan Lanjut)'),
     pihak_terlibat:S(r,'Pihak Terlibat'),
-    kunjungan_faskes:S(r,'Kunjungan ke Faskes\n(Ya/Tidak)'),
-    non_farmakologi:S(r,'Non-farmakologi\n(Ya/Tidak)'),
+    kunjungan_faskes:S(r,'Kunjungan ke Faskes (Ya/Tidak)'),
+    non_farmakologi:S(r,'Non-farmakologi (Ya/Tidak)'),
     rekomendasi:S(r,'Rekomendasi Dari Tenaga Kesehatan '), catatan:S(r,'Catatan'), co:S(r,'CO')
   };
 }
