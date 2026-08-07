@@ -341,7 +341,10 @@ function submitData() {
   var payload = { action:'upload_all', token:token,
     oddp:parsed.oddp, cg:parsed.cg, kader:parsed.kader, nakes:parsed.nakes, bulan_list:bulanSet };
 
-  fetch(GAS_URL, { method:'POST', headers:{ 'Content-Type':'text/plain;charset=utf-8' }, body:JSON.stringify(payload) })
+  var body = new URLSearchParams();
+  body.append('payload', JSON.stringify(payload));
+
+  fetch(GAS_URL, { method:'POST', body:body })
   .then(function(r){ return r.json(); })
   .then(function(data){
     animProgress(65, 100, 400);
