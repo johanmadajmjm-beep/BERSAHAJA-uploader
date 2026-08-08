@@ -168,7 +168,7 @@ function doLogout() {
 /* ── BULAN PARSER ── */
 function toBulanKey(v) {
   if (v === null || v === undefined || v === '') return null;
-  if (v instanceof Date) return String(v.getMonth()+1).padStart(2,'0') + '/' + v.getFullYear();
+  if (v instanceof Date) return String(v.getUTCMonth()+1).padStart(2,'0') + '/' + v.getUTCFullYear();
   var s = String(v).trim();
   // ISO "2025-09" atau "2025-09-15" → MM/YYYY
   var iso = s.match(/^(\d{4})[.\-\/](\d{1,2})/);
@@ -184,7 +184,7 @@ function toBulanKey(v) {
 }
 function dateStr(v) {
   if (v === null || v === undefined || v === '') return '';
-  if (v instanceof Date) return String(v.getDate()).padStart(2,'0')+'/'+String(v.getMonth()+1).padStart(2,'0')+'/'+v.getFullYear();
+  if (v instanceof Date) return String(v.getUTCDate()).padStart(2,'0')+'/'+String(v.getUTCMonth()+1).padStart(2,'0')+'/'+v.getUTCFullYear();
   var s = String(v).trim();
   // ISO "2025-09-15" → DD/MM/YYYY
   var iso = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
@@ -215,7 +215,7 @@ function readOneFile(file) {
     var reader = new FileReader();
     reader.onload = function(e) {
       try {
-        var wb = XLSX.read(new Uint8Array(e.target.result), { type:'array', cellDates:true });
+        var wb = XLSX.read(new Uint8Array(e.target.result), { type:'array', cellDates:false });
         var names = wb.SheetNames.map(function(n){ return n.toUpperCase().trim(); });
         function getSheet(want) {
           var idx = names.indexOf(want);
