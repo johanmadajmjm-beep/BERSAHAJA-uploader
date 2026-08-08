@@ -84,20 +84,21 @@ a{color:inherit;text-decoration:none}
 
   <!-- UPLOAD -->
   <div class="card">
-    <div class="card-title"><span>📁</span><span>Pilih File Rekapan (.xlsx)</span></div>
+    <div class="card-title"><span>📁</span><span>Pilih File Rekapan (.xlsx) — bisa banyak file sekaligus</span></div>
     <div class="drop-zone" id="dropZone">
-      <input type="file" id="xlsInput" accept=".xlsx,.xls">
+      <input type="file" id="xlsInput" accept=".xlsx,.xls" multiple>
       <div class="drop-icon">📂</div>
       <div class="drop-text">Klik atau drag & drop file rekapan di sini</div>
-      <div class="drop-sub">Template harus punya sheet: ODDP · PENDAMPING · KADER · NAKES</div>
+      <div class="drop-sub">Bisa pilih beberapa file sekaligus · tiap file punya sheet: ODDP · PENDAMPING · KADER · NAKES</div>
     </div>
+    <div id="fileList" style="margin-top:12px;display:flex;flex-direction:column;gap:6px"></div>
     <div class="file-loaded" id="fileLoaded">
       <span style="font-size:20px">✅</span>
       <div>
         <div id="fileNameLabel" style="font-weight:600"></div>
         <div id="filePeriod" style="font-size:10px;color:var(--text2);margin-top:2px"></div>
       </div>
-      <button onclick="resetAll()" style="margin-left:auto;font-size:11px;padding:4px 10px;border-radius:6px;cursor:pointer;background:var(--surface2);color:var(--text2);border:1px solid var(--border);font-family:inherit">✕ Ganti</button>
+      <button onclick="resetAll()" style="margin-left:auto;font-size:11px;padding:4px 10px;border-radius:6px;cursor:pointer;background:var(--surface2);color:var(--text2);border:1px solid var(--border);font-family:inherit">✕ Hapus semua</button>
     </div>
   </div>
 
@@ -150,11 +151,11 @@ var SHEET_META = {
 window.onload = function() {
   if (!localStorage.getItem('bersahaja_token')) { window.location.href = 'index.html'; return; }
   document.getElementById('userBadge').textContent = localStorage.getItem('bersahaja_username') || '–';
-  document.getElementById('xlsInput').addEventListener('change', function(){ if(this.files[0]) loadFile(this.files[0]); });
+  document.getElementById('xlsInput').addEventListener('change', function(){ if(this.files.length) loadFiles(this.files); });
   var dz = document.getElementById('dropZone');
   dz.addEventListener('dragover', function(e){ e.preventDefault(); dz.classList.add('drag'); });
   dz.addEventListener('dragleave', function(){ dz.classList.remove('drag'); });
-  dz.addEventListener('drop', function(e){ e.preventDefault(); dz.classList.remove('drag'); if(e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]); });
+  dz.addEventListener('drop', function(e){ e.preventDefault(); dz.classList.remove('drag'); if(e.dataTransfer.files.length) loadFiles(e.dataTransfer.files); });
 };
 
 function doLogout() {
@@ -167,16 +168,33 @@ function doLogout() {
 /* ── BULAN PARSER ── */
 function toBulanKey(v) {
   if (v === null || v === undefined || v === '') return null;
-  if (v instanceof Date) return v.getFullYear() + '-' + String(v.getMonth()+1).padStart(2,'0');
+  if (v instanceof Date) return String(v.getMonth()+1).padStart(2,'0') + '/' + v.getFullYear();
   var s = String(v).trim();
-  var m = s.match(/^(\d{4})[.\-\/](\d{1,2})/);
-  if (m) return m[1] + '-' + String(parseInt(m[2])).padStart(2,'0');
+  // ISO "2025-09" atau "2025-09-15" → MM/YYYY
+  var iso = s.match(/^(\d{4})[.\-\/](\d{1,2})/);
+  if (iso) return String(parseInt(iso[2])).padStart(2,'0') + '/' + iso[1];
+  // Angka serial → Date → MM/YYYY
+  if (/^\d+(\.\d+)?$/.test(s)) { var sn=parseFloat(s); if(sn>20000&&sn<80000){ var d=new Date(Date.UTC(1899,11,30)+Math.round(sn)*86400000); return String(d.getUTCMonth()+1).padStart(2,'0')+'/'+d.getUTCFullYear(); } }
+  // Sudah MM/YYYY atau DD/MM/YYYY → normalisasi ke MM/YYYY
+  var mmyyyy = s.match(/^(\d{1,2})\/(\d{4})$/);
+  if (mmyyyy) return String(parseInt(mmyyyy[1])).padStart(2,'0') + '/' + mmyyyy[2];
+  var ddmmyyyy = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (ddmmyyyy) return String(parseInt(ddmmyyyy[2])).padStart(2,'0') + '/' + ddmmyyyy[3];
   return s;
 }
 function dateStr(v) {
   if (v === null || v === undefined || v === '') return '';
-  if (v instanceof Date) return v.getFullYear()+'-'+String(v.getMonth()+1).padStart(2,'0')+'-'+String(v.getDate()).padStart(2,'0');
-  return String(v).trim();
+  if (v instanceof Date) return String(v.getDate()).padStart(2,'0')+'/'+String(v.getMonth()+1).padStart(2,'0')+'/'+v.getFullYear();
+  var s = String(v).trim();
+  // ISO "2025-09-15" → DD/MM/YYYY
+  var iso = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if (iso) return String(parseInt(iso[3])).padStart(2,'0')+'/'+String(parseInt(iso[2])).padStart(2,'0')+'/'+iso[1];
+  // Angka serial → Date → DD/MM/YYYY
+  if (/^\d+(\.\d+)?$/.test(s)) { var sn=parseFloat(s); if(sn>20000&&sn<80000){ var d=new Date(Date.UTC(1899,11,30)+Math.round(sn)*86400000); return String(d.getUTCDate()).padStart(2,'0')+'/'+String(d.getUTCMonth()+1).padStart(2,'0')+'/'+d.getUTCFullYear(); } }
+  // Sudah DD/MM/YYYY → biarkan (pastikan padding)
+  var ddmmyyyy = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (ddmmyyyy) return String(parseInt(ddmmyyyy[1])).padStart(2,'0')+'/'+String(parseInt(ddmmyyyy[2])).padStart(2,'0')+'/'+ddmmyyyy[3];
+  return s;
 }
 function num(v){ if(v===''||v===null||v===undefined)return null; var n=parseFloat(String(v).replace(',','.')); return isNaN(n)?null:n; }
 function S(r,k){
@@ -189,46 +207,116 @@ function S(r,k){
   return '';
 }
 
-/* ── LOAD FILE ── */
-function loadFile(file) {
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    try {
-      var wb = XLSX.read(new Uint8Array(e.target.result), { type:'array', cellDates:true });
-      parsed = { oddp:[], cg:[], kader:[], nakes:[] };
-      bulanSet = [];
+/* ── LOAD FILES (banyak) ── */
+var loadedFiles = []; // {name, counts:{oddp,cg,kader,nakes}}
 
-      var names = wb.SheetNames.map(function(n){ return n.toUpperCase().trim(); });
-      function getSheet(want) {
-        var idx = names.indexOf(want);
-        return idx >= 0 ? XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[idx]], { defval:'' }) : [];
-      }
-
-      parsed.oddp  = getSheet('ODDP').map(mapODDP).filter(Boolean);
-      parsed.cg    = getSheet('PENDAMPING').map(mapCG).filter(Boolean);
-      parsed.kader = getSheet('KADER').map(mapKader).filter(Boolean);
-      parsed.nakes = getSheet('NAKES').map(mapNakes).filter(Boolean);
-
-      var all = [].concat(parsed.oddp, parsed.cg, parsed.kader, parsed.nakes);
-      bulanSet = [...new Set(all.map(function(r){ return r.bulan; }).filter(Boolean))].sort();
-
-      var total = all.length;
-      if (total === 0) { showToast('⚠️ Tidak ada data valid. Cek nama sheet & kolom Bulan.'); return; }
-
-      document.getElementById('fileLoaded').classList.add('show');
-      document.getElementById('fileNameLabel').textContent = file.name;
-      document.getElementById('filePeriod').textContent = 'Periode terdeteksi: ' + (bulanSet.join(', ') || '–') + ' · Total ' + total + ' baris';
-
-      renderSummary();
-      renderPreview();
-      buildUploadDesc();
-      document.getElementById('summaryCard').style.display = 'block';
-      document.getElementById('previewCard').style.display = 'block';
-      document.getElementById('actionCard').style.display = 'block';
-    } catch(err) { showToast('❌ Gagal baca Excel: ' + err.message); }
-  };
-  reader.readAsArrayBuffer(file);
+function readOneFile(file) {
+  return new Promise(function(resolve, reject) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        var wb = XLSX.read(new Uint8Array(e.target.result), { type:'array', cellDates:true });
+        var names = wb.SheetNames.map(function(n){ return n.toUpperCase().trim(); });
+        function getSheet(want) {
+          var idx = names.indexOf(want);
+          return idx >= 0 ? XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[idx]], { defval:'' }) : [];
+        }
+        var res = {
+          oddp:  getSheet('ODDP').map(mapODDP).filter(Boolean),
+          cg:    getSheet('PENDAMPING').map(mapCG).filter(Boolean),
+          kader: getSheet('KADER').map(mapKader).filter(Boolean),
+          nakes: getSheet('NAKES').map(mapNakes).filter(Boolean)
+        };
+        resolve(res);
+      } catch(err) { reject(err); }
+    };
+    reader.onerror = function(){ reject(new Error('Gagal membaca file')); };
+    reader.readAsArrayBuffer(file);
+  });
 }
+
+function loadFiles(fileListInput) {
+  var files = Array.prototype.slice.call(fileListInput);
+  var xlsxFiles = files.filter(function(f){ return /\.x(lsx|ls)$/i.test(f.name); });
+  if (!xlsxFiles.length) { showToast('⚠️ Tidak ada file .xlsx yang valid'); return; }
+
+  Promise.all(xlsxFiles.map(function(f){
+    return readOneFile(f).then(function(res){ return { name:f.name, res:res }; })
+                         .catch(function(err){ return { name:f.name, error:err.message }; });
+  })).then(function(results) {
+    results.forEach(function(item) {
+      if (item.error) { showToast('❌ '+item.name+': '+item.error); return; }
+      var r = item.res;
+      // Gabungkan ke parsed global
+      parsed.oddp  = parsed.oddp.concat(r.oddp);
+      parsed.cg    = parsed.cg.concat(r.cg);
+      parsed.kader = parsed.kader.concat(r.kader);
+      parsed.nakes = parsed.nakes.concat(r.nakes);
+      loadedFiles.push({ name:item.name, data:r, counts:{ oddp:r.oddp.length, cg:r.cg.length, kader:r.kader.length, nakes:r.nakes.length } });
+    });
+    afterLoad();
+  });
+}
+
+function afterLoad() {
+  var all = [].concat(parsed.oddp, parsed.cg, parsed.kader, parsed.nakes);
+  bulanSet = [...new Set(all.map(function(r){ return r.bulan; }).filter(Boolean))].sort(sortBulan);
+  var total = all.length;
+  if (total === 0) { showToast('⚠️ Tidak ada data valid. Cek nama sheet & kolom Bulan.'); return; }
+
+  renderFileList();
+  document.getElementById('fileLoaded').classList.add('show');
+  document.getElementById('fileNameLabel').textContent = loadedFiles.length + ' file dimuat';
+  document.getElementById('filePeriod').textContent = 'Periode gabungan: ' + (bulanSet.map(bulanLabelUp).join(', ') || '–') + ' · Total ' + total + ' baris';
+
+  renderSummary();
+  renderPreview();
+  buildUploadDesc();
+  document.getElementById('summaryCard').style.display = 'block';
+  document.getElementById('previewCard').style.display = 'block';
+  document.getElementById('actionCard').style.display = 'block';
+  // Reset input agar bisa pilih file sama lagi
+  document.getElementById('xlsInput').value = '';
+}
+
+function renderFileList() {
+  var el = document.getElementById('fileList');
+  if (!loadedFiles.length) { el.innerHTML=''; return; }
+  el.innerHTML = loadedFiles.map(function(f, i){
+    var c = f.counts;
+    return '<div style="display:flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:12px">'+
+      '<span style="font-size:14px">📄</span>'+
+      '<span style="font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+escH(f.name)+'</span>'+
+      '<span style="font-size:10px;color:var(--text3)">O:'+c.oddp+' · P:'+c.cg+' · K:'+c.kader+' · N:'+c.nakes+'</span>'+
+      '<button onclick="removeFile('+i+')" style="font-size:14px;line-height:1;background:none;border:none;color:#f87171;cursor:pointer;padding:0 4px" title="Hapus file ini">✕</button>'+
+    '</div>';
+  }).join('');
+}
+
+function removeFile(idx) {
+  loadedFiles.splice(idx, 1);
+  rebuildParsed();
+}
+
+function rebuildParsed() {
+  parsed = { oddp:[], cg:[], kader:[], nakes:[] };
+  loadedFiles.forEach(function(f){
+    parsed.oddp  = parsed.oddp.concat(f.data.oddp);
+    parsed.cg    = parsed.cg.concat(f.data.cg);
+    parsed.kader = parsed.kader.concat(f.data.kader);
+    parsed.nakes = parsed.nakes.concat(f.data.nakes);
+  });
+  if (!loadedFiles.length) { resetAll(); return; }
+  afterLoad();
+}
+
+/* helper sort & label bulan (MM/YYYY) di uploader */
+function bulanKeyISO(b){ var m=String(b).match(/^(\d{1,2})\/(\d{4})$/); return m? m[2]+'-'+String(parseInt(m[1])).padStart(2,'0') : String(b); }
+function sortBulan(a,b){ return bulanKeyISO(a)<bulanKeyISO(b)?-1:1; }
+function bulanLabelUp(b){ var m=String(b).match(/^(\d{1,2})\/(\d{4})$/); if(!m)return b; var A=['','Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des']; return A[parseInt(m[1])]+'-'+m[2].substring(2); }
+
+/* ── LOAD FILE (dipertahankan untuk kompatibilitas, tidak dipakai lagi) ── */
+function loadFile(file) { loadFiles([file]); }
 
 /* ── MAPPERS (kolom template FIXED) ── */
 function mapODDP(r) {
@@ -328,8 +416,8 @@ function setPv(k){ activePv=k; renderPreview(); }
 function buildUploadDesc() {
   var counts = Object.keys(SHEET_META).map(function(k){ return SHEET_META[k].label+': '+parsed[k].length; }).join(' · ');
   document.getElementById('uploadDesc').innerHTML =
-    'Akan dikirim → <strong>'+counts+'</strong><br>' +
-    'Periode: <strong>'+(bulanSet.join(', ')||'–')+'</strong><br>' +
+    'Dari <strong>'+loadedFiles.length+' file</strong> → <strong>'+counts+'</strong><br>' +
+    'Periode: <strong>'+(bulanSet.map(bulanLabelUp).join(', ')||'–')+'</strong><br>' +
     '<span class="warn">⚠️ Data periode yang sama di server akan diganti oleh upload ini (semua 4 kategori).</span>';
 }
 
@@ -382,8 +470,9 @@ function animProgress(from, to, dur) {
 function showResult(msg, type){ var el=document.getElementById('resultBox'); el.innerHTML=msg; el.className='result-box '+type; }
 
 function resetAll() {
-  parsed = { oddp:[], cg:[], kader:[], nakes:[] }; bulanSet=[]; activePv='oddp';
+  parsed = { oddp:[], cg:[], kader:[], nakes:[] }; bulanSet=[]; activePv='oddp'; loadedFiles=[];
   document.getElementById('xlsInput').value='';
+  document.getElementById('fileList').innerHTML='';
   document.getElementById('fileLoaded').classList.remove('show');
   document.getElementById('summaryCard').style.display='none';
   document.getElementById('previewCard').style.display='none';
